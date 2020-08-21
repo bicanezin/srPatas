@@ -2,6 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
+import { Image, ImageProps } from 'react-native'
+import { colors } from '../styles';
 
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -11,24 +13,27 @@ import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../../type
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+  let houseGrey = require('../../assets/images/house-grey.png');
+  let housePurple = require('../../assets/images/house-purple.png');
+  let pawGrey = require('../../assets/images/paw-grey.png');
+  let pawPurple = require('../../assets/images/paw-purple.png');
 
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: 'pink' }}>
+      tabBarOptions={{ activeTintColor: colors.purple, inactiveTintColor: colors.greyLight }}>
       <BottomTab.Screen
         name="TabOne"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color, focused }) => focused ? <TabBarIcon source={housePurple} /> : <TabBarIcon source={houseGrey} />,
         }}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color, focused }) => focused ? <TabBarIcon source={pawPurple} /> : <TabBarIcon source={pawGrey} />,
         }}
       />
     </BottomTab.Navigator>
@@ -37,8 +42,8 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+function TabBarIcon(props: { source: ImageProps; }) {
+  return <Image source style={{ height: 30, width: 30 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
