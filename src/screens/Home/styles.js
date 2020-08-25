@@ -17,17 +17,47 @@ export function normalize(size) {
 
 export const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.white,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  textInputView: {
+    // backgroundColor: colors.green1,
+    borderColor: colors.purpleDarker,
+    borderRadius: 20,
+    borderWidth: 2,
+    width: wp(90),
+    alignSelf: "center",
+    marginTop: 15,
+    // justifyContent: "space-around",
+    // flex: 1,
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: wp(4),
     height: 1,
     width: "80%",
+  },
+  servicesTitle: {
+    color: colors.purpleDarker,
+    fontSize: normalize(20),
+    marginLeft: wp(5),
+    fontFamily: "notoSans-bold",
+  },
+  serviceItemView: {
+    backgroundColor: colors.purpleLight,
+    width: wp(28),
+    height: wp(30),
+    marginBottom: wp(4),
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 3,
+    marginLeft: wp(5),
+  },
+  serviceText: {
+    textAlign: "center",
+    color: colors.purpleDarker,
+    fontSize: normalize(15),
+    fontFamily: "notoSans-bold",
   },
 });
