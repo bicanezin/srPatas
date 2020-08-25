@@ -4,8 +4,8 @@ import * as React from "react";
 import { Image } from "react-native";
 import { colors } from "../styles";
 
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import Home from "../screens/Home";
+import MyServices from "../screens/MyServices";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -17,15 +17,16 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false, headerLeft: false }}
       tabBarOptions={{
         activeTintColor: colors.purple,
         inactiveTintColor: colors.greyLight,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color, focused }) =>
             focused ? (
@@ -36,8 +37,8 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="MyServices"
+        component={MyServicesNavigator}
         options={{
           tabBarIcon: ({ color, focused }) =>
             focused ? (
@@ -59,33 +60,33 @@ function TabBarIcon({ source }) {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
+    <HomeStack.Navigator screenOptions={{ headerLeft: false }}>
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
         options={{
           headerTitle: "Sr. Patas",
           headerTitleStyle: { fontFamily: "notoSans-thin" },
         }}
       />
-    </TabOneStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator();
+const MyServicesStack = createStackNavigator();
 
-function TabTwoNavigator() {
+function MyServicesNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: "Tab Two Title" }}
+    <MyServicesStack.Navigator screenOptions={{ headerLeft: false }}>
+      <MyServicesStack.Screen
+        name="MyServices"
+        component={MyServices}
+        options={{ headerTitle: "Meus agendamentos" }}
       />
-    </TabTwoStack.Navigator>
+    </MyServicesStack.Navigator>
   );
 }
