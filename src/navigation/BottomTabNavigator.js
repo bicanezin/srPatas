@@ -70,7 +70,7 @@ function HomeNavigator() {
         component={Home}
         options={{
           headerTitle: "Sr. Patas",
-          headerTitleStyle: { fontFamily: "notoSans-thin" },
+          headerTitleStyle: { fontFamily: "notoSans-regular" },
         }}
       />
     </HomeStack.Navigator>
