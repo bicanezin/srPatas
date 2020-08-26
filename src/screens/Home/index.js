@@ -6,11 +6,13 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { Ionicons } from "@expo/vector-icons";
 
 import TInput from "../../components/TextInput";
 import Rating from "../../components/Rating";
@@ -100,11 +102,13 @@ export default function Home() {
     return (
       <View style={{}}>
         <TouchableOpacity style={styles.serviceItemView}>
+          <Ionicons name="ios-cut" size={26} color={colors.greyLight} />
           <Text style={styles.serviceText}>{item[0].title}</Text>
         </TouchableOpacity>
 
         {item.length > 1 ? (
           <TouchableOpacity style={styles.serviceItemView}>
+            <Ionicons name="ios-cut" size={24} color={colors.greyLight} />
             <Text style={styles.serviceText}>{item[1].title}</Text>
           </TouchableOpacity>
         ) : null}
@@ -115,9 +119,41 @@ export default function Home() {
   const renderItem = (item) => {
     return (
       <View style={{}}>
-        <TouchableOpacity style={styles.serviceItemView}>
-          <Text style={styles.serviceText}>{item.name}</Text>
-          <Rating rate={item.rating}></Rating>
+        <TouchableOpacity style={styles.petShopItemView}>
+          <View
+            style={{
+              // backgroundColor: colors.blue,
+              flexDirection: "row",
+              flex: 1,
+              width: wp(90),
+              alignItems: "center",
+              // height: wp(30),
+            }}
+          >
+            <Image
+              source={require("../../../assets/images/dog_shower.jpg")}
+              style={{
+                width: wp(40),
+                height: wp(50),
+                flex: 1,
+                alignSelf: "center",
+              }}
+              resizeMode="contain"
+            />
+            <View
+              style={{
+                // backgroundColor: colors.green,
+                flex: 1,
+                alignItems: "flex-start",
+              }}
+            >
+              <Text style={styles.petShopText}>{item.name}</Text>
+              <Text>{item.address}</Text>
+              <Text>{item.city}</Text>
+              <Text>{item.openTime}</Text>
+              <Rating rate={item.rating}></Rating>
+            </View>
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -131,46 +167,61 @@ export default function Home() {
   const keyExtractor = React.useCallback((item, index) => index.toString(), []);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.textInputView}>
-        <TInput
-          icon="ios-search"
-          value={search}
-          label="O que você está procurando?"
-          placeholder="Tosa"
-          onChangeText={setSearch}
-          returnKeyType="next"
-          autoCapitalize="words"
-          errorBool={false}
-          //   // error={!!name && _nameError()}
-          //   // errorText={"Insira um nome completo"}
-          // visible={nameError && _nameError()}
-        />
-      </View>
-
-      <View style={styles.separator} />
-      <Text style={styles.servicesTitle}>Serviços</Text>
-
+    <View style={styles.container}>
       <FlatList
+        ListHeaderComponent={
+          <>
+            <View style={styles.textInputView}>
+              <TInput
+                icon="ios-search"
+                value={search}
+                label="O que você está procurando?"
+                placeholder="Tosa"
+                onChangeText={setSearch}
+                returnKeyType="next"
+                autoCapitalize="words"
+                errorBool={false}
+                //   // error={!!name && _nameError()}
+                //   // errorText={"Insira um nome completo"}
+                // visible={nameError && _nameError()}
+              />
+            </View>
+
+            <View style={styles.separator} />
+          </>
+        }
         data={arrays}
         keyExtractor={keyExtractor}
-        horizontal={true}
-        renderItem={({ item, index }) => renderServices(item)}
+        // horizontal={true}
+        renderItem={({ item, index }) => {}}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         getItemLayout={getItemLayout}
+        ListFooterComponent={
+          <>
+            <Text style={styles.servicesTitle}>Serviços</Text>
+            <FlatList
+              data={arrays}
+              keyExtractor={keyExtractor}
+              horizontal={true}
+              renderItem={({ item, index }) => renderServices(item)}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              getItemLayout={getItemLayout}
+            />
+            <View style={styles.separator} />
+            <Text style={styles.servicesTitle}>Pet shops</Text>
+            <FlatList
+              data={petShop}
+              keyExtractor={keyExtractor}
+              renderItem={({ item, index }) => renderItem(item)}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              getItemLayout={getItemLayout}
+            />
+          </>
+        }
       />
-
-      <View style={styles.separator} />
-      <Text style={styles.servicesTitle}>Pet shops</Text>
-      <FlatList
-        data={petShop}
-        keyExtractor={keyExtractor}
-        renderItem={({ item, index }) => renderItem(item)}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        getItemLayout={getItemLayout}
-      />
-    </ScrollView>
+    </View>
   );
 }
