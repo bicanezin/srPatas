@@ -1,8 +1,4 @@
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 
@@ -16,8 +12,7 @@ import Register from "../screens/Register";
 export default function Navigation({ colorScheme }) {
   return (
     <NavigationContainer
-      // linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    // linking={LinkingConfiguration}
     >
       <RootNavigator />
     </NavigationContainer>
@@ -31,7 +26,7 @@ const Stack = createStackNavigator();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName={"Login"}
+      initialRouteName={"Root"}
       screenOptions={{ headerShown: false, headerLeft: false }}
     >
       <Stack.Screen name="Root" component={BottomTabNavigator} />
