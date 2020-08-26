@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "srPatas",
+    "name": "Sr. Patas",
     "slug": "srPatas",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,11 +15,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bicanezin.srPatas"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
