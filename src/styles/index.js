@@ -1,3 +1,5 @@
-import colors from './colors';
+import colors from "./colors";
+import fontFamily from "./fontFamily";
+import metrics from "./metrics";
 
-export { colors };
+export { colors, fontFamily, metrics };
