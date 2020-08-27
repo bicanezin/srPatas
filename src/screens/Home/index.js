@@ -104,7 +104,7 @@ export default function Home({ navigation, route }) {
       city: "Londrina",
       openTime: "Horário de atendimento das 08 as 19hrs",
       rating: 1,
-      imgUrl: require("../../../assets/images/dog_shower.jpg"),
+      imgUrl: require("../../../assets/images/dog_petShop.jpg"),
     },
   ]);
   const [search, setSearch] = React.useState("");
@@ -222,16 +222,6 @@ export default function Home({ navigation, route }) {
       <FlatList
         ListHeaderComponent={
           <>
-            {/* <Image
-              source={require("../../../assets/images/wall.png")}
-              style={{
-                width: wp(100),
-                height: wp(30),
-                marginBottom: wp(-11),
-                // alignSelf: "center",
-              }}
-              resizeMode="contain"
-            /> */}
             <View style={styles.textInputView}>
               <TInput
                 icon="ios-search"
