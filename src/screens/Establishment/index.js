@@ -61,49 +61,10 @@ export default function Establishment({ navigation, route }) {
     },
   ]);
   const [selectedService, setSelectedService] = React.useState(0);
-  const [petShop, setPetShop] = React.useState([
-    {
-      id: 1,
-      name: "Pet shop quatro patas",
-      address: "Avenida Higienopolis, 10",
-      city: "Londrina",
-      openTime: "Horário de atendimento das 08 as 19hrs",
-      rating: 5,
-    },
-    {
-      id: 2,
-      name: "Republica pet",
-      address: "Avenida Adhemar Pereira de Barros, 100",
-      city: "Londrina",
-      openTime: "Horário de atendimento das 08 as 19hrs",
-      rating: 0,
-    },
-    {
-      id: 3,
-      name: "Pet shop amicão",
-      address: "Avenida Higienopolis, 10",
-      city: "Londrina",
-      openTime: "Horário de atendimento das 08 as 19hrs",
-      rating: 2,
-    },
-    {
-      id: 4,
-      name: "Pet shop doguinho",
-      address: "Avenida Higienopolis, 10",
-      city: "Londrina",
-      openTime: "Horário de atendimento das 08 as 19hrs",
-      rating: 3,
-    },
-    {
-      id: 5,
-      name: "Pet do Gregs",
-      address: "Avenida Higienopolis, 10",
-      city: "Londrina",
-      openTime: "Horário de atendimento das 08 as 19hrs",
-      rating: 1,
-    },
-  ]);
   const [search, setSearch] = React.useState("");
+  const [selectedEstablishment, setSelectedEstablishment] = React.useState([
+    route.params,
+  ]);
   const [arrays, setArrays] = React.useState([]);
   const size = 2;
   while (services.length > 0) arrays.push(services.splice(0, size));
@@ -159,34 +120,37 @@ export default function Establishment({ navigation, route }) {
   const renderPetShop = (item) => {
     return (
       <View style={{}}>
-        <TouchableOpacity style={styles.petShopItemView}>
-          <View style={styles.petShopItemImageView}>
-            <Image
-              source={require("../../../assets/images/dog_shower.jpg")}
-              style={{
-                width: wp(35),
-                height: wp(30),
-                // flex: 1,
-                alignSelf: "center",
-              }}
-              resizeMode="stretch"
-            />
-            <View
-              style={{
-                marginLeft: wp(2),
-                // backgroundColor: colors.green,
-                flex: 1,
-                alignItems: "center",
-              }}
-            >
-              <Text style={styles.petShopName}>{item.name}</Text>
-              <Text style={styles.petShopInfos}>{item.address}</Text>
-              <Text style={styles.petShopInfos}>{item.city}</Text>
-              <Text style={styles.petShopInfos}>{item.openTime}</Text>
-              <Rating rate={item.rating} />
-            </View>
+        <View style={styles.petShopItemImageView}>
+          <Image
+            source={item.imgUrl}
+            style={{
+              width: "100%",
+              height: undefined,
+              aspectRatio: 1.2,
+              transform: [{ scale: 1.2 }],
+            }}
+            resizeMode="contain"
+          />
+          <View
+            style={{
+              paddingTop: 10,
+              width: wp(100),
+              paddingHorizontal: 25,
+              marginTop: wp(-30),
+              borderTopStartRadius: 40,
+              borderTopEndRadius: 40,
+              backgroundColor: colors.white,
+              flex: 1,
+              alignItems: "center",
+            }}
+          >
+            <Text style={styles.petShopName}>{item.name}</Text>
+            <Text style={styles.petShopInfos}>{item.address}</Text>
+            <Text style={styles.petShopInfos}>{item.city}</Text>
+            <Text style={styles.petShopInfos}>{item.openTime}</Text>
+            <Rating rate={item.rating} />
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -202,22 +166,40 @@ export default function Establishment({ navigation, route }) {
     <View style={styles.container}>
       <FlatList
         ListHeaderComponent={
-          <>
-            <View style={styles.separator} />
+          <View style={{ marginTop: hp(3) }}>
+            <View style={styles.sectionContainer}>
+              <FlatList
+                data={selectedEstablishment}
+                keyExtractor={keyExtractor}
+                renderItem={({ item, index }) => renderPetShop(item)}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                getItemLayout={getItemLayout}
+              />
+            </View>
             <TouchableOpacity
               onPress={() => {
                 navigation.goBack();
               }}
-              style={{ backgroundColor: colors.blue }}
+              style={{
+                position: "absolute",
+                marginTop: hp(2),
+                marginLeft: wp(2),
+                backgroundColor: colors.darkTransparent,
+                width: metrics.goBackIconSize + 7,
+                borderRadius: metrics.borderRadius,
+                height: metrics.goBackIconSize + 7,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <Icon
-                name="arrow-left"
+              <Ionicons
+                name="ios-arrow-back"
                 size={metrics.goBackIconSize}
                 color={colors.white}
               />
             </TouchableOpacity>
-            <View style={styles.separator} />
-          </>
+          </View>
         }
         data={arrays}
         keyExtractor={keyExtractor}
@@ -227,11 +209,9 @@ export default function Establishment({ navigation, route }) {
         showsHorizontalScrollIndicator={false}
         getItemLayout={getItemLayout}
         ListFooterComponent={
-          <>
+          <View style={{ backgroundColor: colors.white }}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.servicesTitle}>
-                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-              </Text>
+              <Text style={styles.servicesTitle}>Tamanho</Text>
               <FlatList
                 data={arrays}
                 keyExtractor={keyExtractor}
@@ -242,21 +222,7 @@ export default function Establishment({ navigation, route }) {
                 getItemLayout={getItemLayout}
               />
             </View>
-
-            <View style={styles.separator} />
-
-            <View style={styles.sectionContainer}>
-              <Text style={styles.servicesTitle}>Pet shops</Text>
-              <FlatList
-                data={petShop}
-                keyExtractor={keyExtractor}
-                renderItem={({ item, index }) => renderPetShop(item)}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                getItemLayout={getItemLayout}
-              />
-            </View>
-          </>
+          </View>
         }
       />
       <Button

@@ -94,12 +94,14 @@ export const styles = StyleSheet.create({
     // borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
-    elevation: 5,
+    // elevation: 5,
   },
   petShopItemImageView: {
     // backgroundColor: colors.blue,
-    flexDirection: "row",
-    flex: 1,
+    // flexDirection: "row",
+    // flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     width: wp(90),
     alignItems: "center",
     // height: wp(30),
@@ -108,7 +110,7 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-start",
 
     color: colors.purpleDarker,
-    fontSize: normalize(15),
+    fontSize: metrics.fontSize20,
     fontFamily: fontFamily.notoSans_bold,
   },
   petShopInfos: {
