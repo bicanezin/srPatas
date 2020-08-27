@@ -1,8 +1,8 @@
-import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { colors } from '../../styles';
+import { StyleSheet, Dimensions, PixelRatio } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { colors } from "../../styles";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 const scale = width / 320;
 
 export function normalize(size) {
@@ -12,22 +12,22 @@ export function normalize(size) {
 
 export const styles = StyleSheet.create({
   mainContainer: {
-    marginHorizontal: wp('8%'), // right and left
+    marginHorizontal: wp("8%"), // right and left
   },
   container: {
     paddingVertical: 0, // top and bottom
     // flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   TInput: {
     flex: 1,
     fontSize: normalize(13),
-    color: colors.greyDarker,
-    backgroundColor: colors.white,
+    color: colors.purpleDarker,
+    backgroundColor: colors.transparent,
     // backgroundColor: 'pink',
-    height: wp('12%'),
+    height: wp("12%"),
   },
 
   helperText: {

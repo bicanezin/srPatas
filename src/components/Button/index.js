@@ -48,5 +48,5 @@ Button.prototype = {
 };
 
 Button.defaultProps = {
-  styleButton: { width: wp("50%"), borderRadius: metrics.borderRadius },
+  styleButton: { width: wp("80%"), borderRadius: metrics.borderRadius },
 };

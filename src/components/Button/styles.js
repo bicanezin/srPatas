@@ -13,17 +13,18 @@ export const styles = StyleSheet.create({
     marginTop: hp("2%"),
     marginBottom: hp("1%"),
     height: hp("6%"),
-    width: wp("40%"),
-    backgroundColor: colors.greyLight,
+    width: wp("80%"),
+    backgroundColor: colors.purpleDarker,
     borderRadius: metrics.borderRadius,
     alignItems: "center",
     justifyContent: "center",
   },
 
   buttonText: {
-    fontSize: wp("4.5%"),
+    fontSize: metrics.fontSize16,
     color: colors.white,
     textAlign: "center",
+    fontFamily: fontFamily.notoSans_medium,
     // fontFamily: 'GothamRounded-Bold',
     // backgroundColor: 'pink'
   },
