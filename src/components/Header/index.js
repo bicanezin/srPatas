@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
+import * as React from "react";
+import { Text, View, TouchableOpacity } from "react-native";
+import PropTypes from "prop-types";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-import { styles } from './styles';
-import { colors } from '../../styles';
+import { styles } from "./styles";
+import { colors } from "../../styles";
 
 export default function Header({
   iconLeft,
@@ -30,10 +30,11 @@ export default function Header({
               : // : navigation.navigate("Home")
                 // console.log('não tem como dar back');
                 null;
-          }}>
-          <Icon
-            name="arrow-left"
-            size={wp('10%')}
+          }}
+        >
+          <Ionicons
+            name="ios-arrow-back"
+            size={wp("10%")}
             color={color}
             style={{ flex: 1 }}
           />
@@ -54,12 +55,18 @@ export default function Header({
                 // console.log('não tem como dar back');
                 null;
           }}
-          style={{ flex: 1, alignItems: 'flex-end' }}>
+          style={{ flex: 1, alignItems: "flex-end" }}
+        >
           <Icon
             name={iconRightName}
-            size={wp('8%')}
+            size={wp("8%")}
             color={colorRight}
             // style={{ flex: 1 }}
+          />
+          <Ionicons
+            name="ios-arrow-back"
+            size={metrics.goBackIconSize}
+            color={colors.white}
           />
         </TouchableOpacity>
       ) : (
@@ -85,6 +92,6 @@ Header.prototype = {
   style: {},
   arrowLeft: false,
   arrowRight: false,
-  iconRightName: 'arrow-left',
-  colorRight: 'black',
+  iconRightName: "arrow-left",
+  colorRight: "black",
 };
