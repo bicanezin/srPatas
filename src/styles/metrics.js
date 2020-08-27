@@ -32,5 +32,5 @@ export default {
 
   borderRadius: wp("3%"),
 
-  goBackIconSize: wp("10%"),
+  goBackIconSize: wp("8%"),
 };
