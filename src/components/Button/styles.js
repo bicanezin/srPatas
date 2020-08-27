@@ -5,7 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-import { colors } from "../../styles";
+import { colors, fontFamily, metrics } from "../../styles";
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     height: hp("6%"),
     width: wp("40%"),
     backgroundColor: colors.greyLight,
-    borderRadius: hp("2%"),
+    borderRadius: metrics.borderRadius,
     alignItems: "center",
     justifyContent: "center",
   },

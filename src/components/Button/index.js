@@ -9,7 +9,7 @@ import {
 } from "react-native-responsive-screen";
 
 import { styles } from "./styles";
-import { colors } from "../../styles";
+import { colors, metrics } from "../../styles";
 export default function Button({
   styleButton,
   styleText,
@@ -48,5 +48,5 @@ Button.prototype = {
 };
 
 Button.defaultProps = {
-  styleButton: { width: wp("50%"), borderRadius: wp("3%") },
+  styleButton: { width: wp("50%"), borderRadius: metrics.borderRadius },
 };
