@@ -27,7 +27,7 @@ const Stack = createStackNavigator();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName={"Root"}
+      initialRouteName={"Login"}
       screenOptions={{ headerShown: false, headerLeft: false }}
     >
       <Stack.Screen name="Root" component={BottomTabNavigator} />

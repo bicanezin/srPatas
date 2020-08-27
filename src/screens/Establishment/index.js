@@ -28,36 +28,19 @@ const ITEM_HEIGHT = height * 0.25;
 export default function Establishment({ navigation, route }) {
   const [services, SetServices] = React.useState([
     {
-      id: 0,
-      title: "Todos",
-    },
-    {
       id: 1,
-      title: "Banho",
+      title: "Pequeno",
+      imgUrl: require("../../../assets/images/gregs.png"),
     },
     {
       id: 2,
-      title: "Banho seco",
+      title: "Médio",
+      imgUrl: require("../../../assets/images/pitbull2.png"),
     },
     {
       id: 3,
-      title: "Tosa higiênica",
-    },
-    {
-      id: 4,
-      title: "Corte",
-    },
-    {
-      id: 5,
-      title: "Tosa verão",
-    },
-    {
-      id: 6,
-      title: "Banho e corte de unhas",
-    },
-    {
-      id: 7,
-      title: "Banho e corte de unhas",
+      title: "Grande",
+      imgUrl: require("../../../assets/images/labrador2.png"),
     },
   ]);
   const [selectedService, setSelectedService] = React.useState(0);
@@ -66,53 +49,28 @@ export default function Establishment({ navigation, route }) {
     route.params,
   ]);
   const [arrays, setArrays] = React.useState([]);
-  const size = 2;
+  const size = 1;
   while (services.length > 0) arrays.push(services.splice(0, size));
 
   const renderServices = (item) => {
     return (
-      <View style={{}}>
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
         <TouchableOpacity
-          style={
-            item[0].id != selectedService
-              ? styles.serviceItemView
-              : styles.serviceItemSelectedView
-          }
+          style={styles.serviceItemView}
           onPress={() => setSelectedService(item[0].id)}
         >
-          <Ionicons name="ios-cut" size={26} color={colors.greyLight} />
-          <Text
-            style={
-              item[0].id != selectedService
-                ? styles.serviceText
-                : styles.serviceSelectedText
-            }
-          >
-            {item[0].title}
-          </Text>
+          <Image
+            source={item[0].imgUrl}
+            style={{
+              width: wp(35),
+              height: wp(33),
+              // flex: 1,
+              alignSelf: "center",
+            }}
+            resizeMode="stretch"
+          />
         </TouchableOpacity>
-
-        {item.length > 1 ? (
-          <TouchableOpacity
-            style={
-              item[1].id != selectedService
-                ? styles.serviceItemView
-                : styles.serviceItemSelectedView
-            }
-            onPress={() => setSelectedService(item[1].id)}
-          >
-            <Ionicons name="ios-cut" size={24} color={colors.greyLight} />
-            <Text
-              style={
-                item[1].id != selectedService
-                  ? styles.serviceText
-                  : styles.serviceSelectedText
-              }
-            >
-              {item[1].title}
-            </Text>
-          </TouchableOpacity>
-        ) : null}
+        <Text style={styles.serviceText}>{item[0].title}</Text>
       </View>
     );
   };
@@ -141,14 +99,61 @@ export default function Establishment({ navigation, route }) {
               borderTopEndRadius: 40,
               backgroundColor: colors.white,
               flex: 1,
-              alignItems: "center",
             }}
           >
-            <Text style={styles.petShopName}>{item.name}</Text>
-            <Text style={styles.petShopInfos}>{item.address}</Text>
-            <Text style={styles.petShopInfos}>{item.city}</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                flex: 1,
+                // backgroundColor: colors.yellow,
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons
+                // style={{ backgroundColor: colors.brown }}
+                name="ios-pin"
+                size={35}
+                color={colors.purpleDarker}
+              />
+              <View
+                style={{
+                  flex: 0.9,
+                  // backgroundColor: colors.pink,
+                  alignSelf: "flex-start",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text style={styles.petShopName}>{item.name}</Text>
+                <Text style={styles.petShopInfos}>{item.address}</Text>
+                <Text style={styles.petShopInfos}>{item.city}</Text>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 10,
+                flexDirection: "row",
+                flex: 0.5,
+                // backgroundColor: colors.wine,
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text style={styles.petShopName}>{item.rating}</Text>
+              <View
+                style={{
+                  flex: 0.9,
+                  // backgroundColor: colors.pink,
+                  alignSelf: "flex-start",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Rating rate={item.rating} />
+              </View>
+              {/* <Text style={styles.petShopInfos}>0 avaliações</Text> */}
+            </View>
+
             <Text style={styles.petShopInfos}>{item.openTime}</Text>
-            <Rating rate={item.rating} />
           </View>
         </View>
       </View>
@@ -226,8 +231,8 @@ export default function Establishment({ navigation, route }) {
         }
       />
       <Button
-        styleButton={{ backgroundColor: colors.green1, alignSelf: "center" }}
-        styleText={{ fontSize: 15 }}
+        styleButton={{ alignSelf: "center" }}
+        // styleText={{ fontSize: 15 }}
         onPress={() => {
           navigation.goBack();
         }}

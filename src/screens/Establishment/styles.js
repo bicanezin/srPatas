@@ -49,8 +49,8 @@ export const styles = StyleSheet.create({
   },
   serviceItemView: {
     backgroundColor: colors.purpleLight,
-    width: wp(28),
-    height: wp(30),
+    width: wp(26),
+    height: wp(28),
     marginBottom: wp(4),
     borderRadius: metrics.borderRadius,
     alignItems: "center",
@@ -70,6 +70,8 @@ export const styles = StyleSheet.create({
     marginRight: wp(5),
   },
   serviceText: {
+    marginRight: wp(5),
+    alignSelf: "center",
     textAlign: "center",
     color: colors.purpleDarker,
     fontSize: normalize(15),
@@ -108,7 +110,6 @@ export const styles = StyleSheet.create({
   },
   petShopName: {
     alignSelf: "flex-start",
-
     color: colors.purpleDarker,
     fontSize: metrics.fontSize20,
     fontFamily: fontFamily.notoSans_bold,
