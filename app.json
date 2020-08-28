@@ -26,5 +26,17 @@
     "android": {
       "package": "com.bicanezin.srPatas"
     }
+  },
+  "hooks": {
+    "postPublish": [
+      {
+        "file": "sentry-expo/upload-sourcemaps",
+        "config": {
+          "organization": "utfpr-qp",
+          "project": "srpatas",
+          "authToken": "62103bbe017648d98f3b7122e0f40d507030c885cb30434abea6bad3acc095c4"
+        }
+      }
+    ]
   }
 }
