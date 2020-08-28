@@ -1,14 +1,6 @@
-import { StyleSheet, Dimensions, PixelRatio } from "react-native";
+import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { colors } from "../../styles";
-
-const { width, height } = Dimensions.get("window");
-const scale = width / 320;
-
-export function normalize(size) {
-  const newSize = size * scale;
-  return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
-}
+import { colors, metrics } from "../../styles";
 
 export const styles = StyleSheet.create({
   mainContainer: {
@@ -23,7 +15,7 @@ export const styles = StyleSheet.create({
 
   TInput: {
     flex: 1,
-    fontSize: normalize(13),
+    fontSize: metrics.fontSize13,
     color: colors.purpleDarker,
     backgroundColor: colors.transparent,
     // backgroundColor: 'pink',
@@ -33,6 +25,6 @@ export const styles = StyleSheet.create({
   helperText: {
     marginTop: -5,
     marginLeft: -5,
-    fontSize: normalize(13),
+    fontSize: metrics.fontSize13,
   },
 });

@@ -19,7 +19,6 @@ import Rating from "../../components/Rating";
 
 import { styles } from "./styles";
 import { colors } from "../../styles";
-import { normalize } from "../../components/TextInput/styles";
 
 const { height } = Dimensions.get("window");
 const ITEM_HEIGHT = height * 0.25;

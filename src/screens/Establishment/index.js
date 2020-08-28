@@ -4,7 +4,6 @@ import {
   View,
   FlatList,
   Dimensions,
-  ScrollView,
   TouchableOpacity,
   Image,
 } from "react-native";
@@ -13,9 +12,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Ionicons } from "@expo/vector-icons";
-import Icon from "react-native-vector-icons/Feather";
 
-import TInput from "../../components/TextInput";
 import Rating from "../../components/Rating";
 import Button from "../../components/Button";
 
@@ -44,7 +41,6 @@ export default function Establishment({ navigation, route }) {
     },
   ]);
   const [selectedService, setSelectedService] = React.useState(0);
-  const [search, setSearch] = React.useState("");
   const [selectedEstablishment, setSelectedEstablishment] = React.useState([
     route.params,
   ]);
@@ -234,7 +230,7 @@ export default function Establishment({ navigation, route }) {
         styleButton={{ alignSelf: "center" }}
         // styleText={{ fontSize: 15 }}
         onPress={() => {
-          navigation.goBack();
+          navigation.navigate("Booking");
         }}
       >
         Agendar
