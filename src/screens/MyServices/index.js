@@ -1,11 +1,11 @@
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { styles } from "./styles";
 
-export default function TabTwoScreen() {
+export default function MyServices() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+      <Text style={styles.title}>MyServices</Text>
       <View style={styles.separator} />
     </View>
   );

@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, PixelRatio } from "react-native";
+import { StyleSheet } from "react-native";
 
 import {
   widthPercentageToDP as wp,
@@ -7,19 +7,10 @@ import {
 
 import { colors } from "../../styles";
 
-const { width, height } = Dimensions.get("window");
-const scale = width / 320;
-
-export function normalize(size) {
-  const newSize = size * scale;
-  return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
-}
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: colors.purpleLight,
   },
   title: {
     fontSize: 20,
