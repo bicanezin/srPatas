@@ -4,10 +4,11 @@ import FastImage from "react-native-fast-image";
 import { styles } from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 
+import Header from "../../components/Header";
 import Button from "../../components/Button";
 import TInput from "../../components/TextInput";
 import PasswordInput from "../../components/PasswordInput";
-import { colors } from "../../styles";
+import { colors, fontFamily, metrics } from "../../styles";
 
 export default function Register({ navigation }) {
   const [name, setName] = React.useState("");
@@ -16,16 +17,12 @@ export default function Register({ navigation }) {
   const [password, setPassword] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
 
-  let houseGrey = require("../../../assets/images/house-grey.png");
-  let catWall = require("../../../assets/images/cat_wall.png");
-  let dog1Wall = require("../../../assets/images/dog1_wall.png");
-  let dog2Wall = require("../../../assets/images/wall.png");
   return (
     <View style={styles.container}>
       <View
         style={{
           // backgroundColor: colors.pink,
-          flex: 0.3,
+          flex: 0.4,
           justifyContent: "flex-end",
         }}
       >
@@ -34,16 +31,25 @@ export default function Register({ navigation }) {
             navigation.goBack();
           }}
           name={"ios-arrow-back"}
-          size={21}
+          size={30}
           color={colors.greyDarker}
+          style={{ marginLeft: 15 }}
         />
-        <Text>Criar conta</Text>
+        <Text
+          style={{
+            alignSelf: "center",
+            fontFamily: fontFamily.notoSans_bold,
+            fontSize: metrics.fontSize22,
+          }}
+        >
+          Crie sua conta
+        </Text>
       </View>
 
       <View
         style={{
           // backgroundColor: colors.blue,
-          flex: 1,
+          flex: 1.2,
         }}
       >
         <View

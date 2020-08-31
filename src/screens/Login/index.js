@@ -6,7 +6,7 @@ import { styles } from "./styles";
 import Button from "../../components/Button";
 import TInput from "../../components/TextInput";
 import PasswordInput from "../../components/PasswordInput";
-import { colors } from "../../styles";
+import { colors, fontFamily, metrics } from "../../styles";
 
 export default function Login({ navigation }) {
   const [name, setName] = React.useState("");
@@ -43,7 +43,15 @@ export default function Login({ navigation }) {
           flex: 1.2,
         }}
       >
-        <Text>Login</Text>
+        <Text
+          style={{
+            fontFamily: fontFamily.notoSans_bold,
+            fontSize: metrics.fontSize22,
+            marginLeft: 30,
+          }}
+        >
+          Login
+        </Text>
         <View
           style={{
             // backgroundColor: colors.green1,
@@ -92,13 +100,34 @@ export default function Login({ navigation }) {
       >
         <Button
           onPress={() => {
-            navigation.navigate("Register");
+            navigation.navigate("Root");
           }}
         >
           Login
         </Button>
-        <Text>OU</Text>
-        <Text>Cadastre-se</Text>
+        <Text
+          style={{
+            marginTop: 10,
+            fontFamily: fontFamily.notoSans_regular,
+            fontSize: metrics.fontSize15,
+            color: colors.purpleDarker,
+          }}
+        >
+          OU
+        </Text>
+        <Text
+          style={{
+            marginTop: 10,
+            fontFamily: fontFamily.notoSans_regular,
+            fontSize: metrics.fontSize15,
+            color: colors.purpleDarker,
+          }}
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
+        >
+          Cadastre-se
+        </Text>
       </View>
     </View>
   );

@@ -37,7 +37,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="MyServices"
+        name="Agenda"
         component={MyServicesNavigator}
         options={{
           tabBarIcon: ({ color, focused }) =>
