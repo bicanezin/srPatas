@@ -9,20 +9,25 @@ import { colors, fontFamily, metrics } from "../../styles";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.purpleLight,
     flex: 1,
     // justifyContent: "center",
   },
-  textInputView: {
-    // backgroundColor: colors.green1,
-    borderColor: colors.purpleDarker,
+  dateTimeContainer: {
+    backgroundColor: colors.white,
+    borderBottomEndRadius: 40,
+    borderBottomStartRadius: 40,
+  },
+  goBackContainer: {
+    // position: "absolute",
+    marginTop: hp(2),
+    marginLeft: wp(2),
+    // backgroundColor: colors.darkTransparent,
+    width: metrics.goBackIconSize + 7,
     borderRadius: metrics.borderRadius,
-    borderWidth: 2,
-    width: wp(90),
-    alignSelf: "center",
-    marginTop: 15,
-    // justifyContent: "space-around",
-    // flex: 1,
+    height: metrics.goBackIconSize + 7,
+    alignItems: "center",
+    justifyContent: "center",
   },
   separator: {
     marginVertical: wp(4),
@@ -34,15 +39,44 @@ export const styles = StyleSheet.create({
     width: wp(90),
     alignSelf: "center",
   },
-  servicesTitle: {
+  screenTitle: {
     color: colors.purpleDarker,
     fontSize: metrics.fontSize20,
     fontFamily: fontFamily.notoSans_bold,
   },
-  serviceItemView: {
+  sectionTitle: {
+    fontFamily: fontFamily.notoSans_bold,
+    fontSize: metrics.fontSize19,
+  },
+  dateItemView: {
+    backgroundColor: colors.white,
+    alignSelf: "center",
+    alignItems: "center",
+    width: 50,
+    padding: 5,
+    margin: 5,
+    elevation: 2,
+    borderRadius: metrics.borderRadius,
+  },
+  dateItemSelectedView: {
     backgroundColor: colors.purpleLight,
-    width: wp(26),
-    height: wp(28),
+    alignSelf: "center",
+    alignItems: "center",
+    width: 50,
+    padding: 5,
+    margin: 5,
+    elevation: 2,
+    borderRadius: metrics.borderRadius,
+  },
+  dateText: {
+    color: colors.purpleDarker,
+    fontFamily: fontFamily.notoSans_medium,
+    fontSize: metrics.fontSize16,
+  },
+  timeItemView: {
+    backgroundColor: colors.purpleLight,
+    width: wp(28),
+    height: wp(10),
     marginBottom: wp(4),
     borderRadius: metrics.borderRadius,
     alignItems: "center",
@@ -50,10 +84,10 @@ export const styles = StyleSheet.create({
     elevation: 3,
     marginRight: wp(5),
   },
-  serviceItemSelectedView: {
+  timeItemSelectedView: {
     backgroundColor: colors.purple,
     width: wp(28),
-    height: wp(30),
+    height: wp(10),
     marginBottom: wp(4),
     borderRadius: metrics.borderRadius,
     alignItems: "center",
@@ -61,19 +95,15 @@ export const styles = StyleSheet.create({
     elevation: 3,
     marginRight: wp(5),
   },
-  serviceText: {
-    marginRight: wp(5),
-    alignSelf: "center",
-    textAlign: "center",
+  timeText: {
     color: colors.purpleDarker,
+    fontFamily: fontFamily.notoSans_medium,
     fontSize: metrics.fontSize15,
-    fontFamily: fontFamily.notoSans_bold,
   },
-  serviceSelectedText: {
-    textAlign: "center",
+  timeSelectedText: {
     color: colors.white,
+    fontFamily: fontFamily.notoSans_medium,
     fontSize: metrics.fontSize15,
-    fontFamily: fontFamily.notoSans_bold,
   },
   petShopItemView: {
     paddingVertical: 5,
@@ -88,22 +118,21 @@ export const styles = StyleSheet.create({
     // borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
-    // elevation: 5,
+    elevation: 5,
   },
   petShopItemImageView: {
     // backgroundColor: colors.blue,
-    // flexDirection: "row",
-    // flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: "row",
+    flex: 1,
     width: wp(90),
     alignItems: "center",
     // height: wp(30),
   },
   petShopName: {
     alignSelf: "flex-start",
+
     color: colors.purpleDarker,
-    fontSize: metrics.fontSize20,
+    fontSize: metrics.fontSize15,
     fontFamily: fontFamily.notoSans_bold,
   },
   petShopInfos: {
