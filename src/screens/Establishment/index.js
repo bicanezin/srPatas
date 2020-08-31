@@ -23,7 +23,7 @@ const { height } = Dimensions.get("window");
 const ITEM_HEIGHT = height * 0.25;
 
 export default function Establishment({ navigation, route }) {
-  const [services, SetServices] = React.useState([
+  const [dogSize, setDogSize] = React.useState([
     {
       id: 1,
       title: "Pequeno",
@@ -40,33 +40,124 @@ export default function Establishment({ navigation, route }) {
       imgUrl: require("../../../assets/images/labrador2.png"),
     },
   ]);
+  const [services, SetServices] = React.useState([
+    {
+      id: 1,
+      title: "Banho",
+      duration: "40 min",
+      price: "R$ 70",
+    },
+    {
+      id: 2,
+      title: "Banho seco",
+      duration: "20 min",
+      price: "R$ 50",
+    },
+    {
+      id: 3,
+      title: "Tosa higiênica",
+      duration: "60 min",
+      price: "R$ 100",
+    },
+    {
+      id: 4,
+      title: "Corte",
+      duration: "60 min",
+      price: "R$ 120",
+    },
+    {
+      id: 5,
+      title: "Tosa verão",
+      duration: "40 min",
+      price: "R$ 90",
+    },
+    {
+      id: 6,
+      title: "Banho e corte de unhas",
+      duration: "50 min",
+      price: "R$ 90",
+    },
+    {
+      id: 7,
+      title: "Banho e corte de unhas",
+      duration: "60 min",
+      price: "R$ 120",
+    },
+  ]);
+  const [selectedDogSize, setSelectedDogSize] = React.useState(1);
   const [selectedService, setSelectedService] = React.useState(0);
   const [selectedEstablishment, setSelectedEstablishment] = React.useState([
     route.params,
   ]);
   const [arrays, setArrays] = React.useState([]);
   const size = 1;
-  while (services.length > 0) arrays.push(services.splice(0, size));
+  while (dogSize.length > 0) arrays.push(dogSize.splice(0, size));
 
-  const renderServices = (item) => {
+  const renderDogSize = (item) => {
     return (
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.itemContainer}>
         <TouchableOpacity
-          style={styles.serviceItemView}
-          onPress={() => setSelectedService(item[0].id)}
+          style={
+            item[0].id != selectedDogSize
+              ? styles.dogSizeView
+              : styles.dogSizeSelectedView
+          }
+          onPress={() => setSelectedDogSize(item[0].id)}
         >
           <Image
             source={item[0].imgUrl}
-            style={{
-              width: wp(35),
-              height: wp(33),
-              // flex: 1,
-              alignSelf: "center",
-            }}
+            style={styles.dogSizeImage}
             resizeMode="stretch"
           />
         </TouchableOpacity>
-        <Text style={styles.serviceText}>{item[0].title}</Text>
+        <Text style={styles.dogSizeText}>{item[0].title}</Text>
+      </View>
+    );
+  };
+
+  const renderServices = (item) => {
+    return (
+      <View style={styles.itemContainer}>
+        <TouchableOpacity
+          style={
+            item.id != selectedService
+              ? styles.serviceItemView
+              : styles.serviceItemSelectedView
+          }
+          onPress={() => setSelectedService(item.id)}
+        >
+          <View>
+            <Text
+              style={
+                item.id != selectedService
+                  ? styles.serviceItemTitle
+                  : styles.serviceItemTitleSelected
+              }
+            >
+              {item.title}
+            </Text>
+            <Text
+              style={
+                item.id != selectedService
+                  ? styles.serviceItemDuration
+                  : styles.serviceItemDurationSelected
+              }
+            >
+              {item.duration}
+            </Text>
+          </View>
+          <View>
+            <Text
+              style={
+                item.id != selectedService
+                  ? styles.serviceItemDuration
+                  : styles.serviceItemDurationSelected
+              }
+            >
+              {item.price}
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -217,6 +308,20 @@ export default function Establishment({ navigation, route }) {
                 data={arrays}
                 keyExtractor={keyExtractor}
                 horizontal={true}
+                renderItem={({ item, index }) => renderDogSize(item)}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                getItemLayout={getItemLayout}
+              />
+            </View>
+
+            <View style={styles.separator} />
+
+            <View style={styles.sectionContainer}>
+              <Text style={styles.servicesTitle}>Serviços</Text>
+              <FlatList
+                data={services}
+                keyExtractor={keyExtractor}
                 renderItem={({ item, index }) => renderServices(item)}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
@@ -227,10 +332,14 @@ export default function Establishment({ navigation, route }) {
         }
       />
       <Button
-        styleButton={{ alignSelf: "center" }}
+        styleButton={
+          selectedService != 0
+            ? { alignSelf: "center" }
+            : { alignSelf: "center", backgroundColor: colors.grey }
+        }
         // styleText={{ fontSize: 15 }}
         onPress={() => {
-          navigation.navigate("Booking");
+          selectedService != 0 ? navigation.navigate("Booking") : null;
         }}
       >
         Agendar
