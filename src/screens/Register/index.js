@@ -24,7 +24,7 @@ export default function Register({ navigation }) {
     <View style={styles.container}>
       <View
         style={{
-          backgroundColor: colors.pink,
+          // backgroundColor: colors.pink,
           flex: 0.3,
           justifyContent: "flex-end",
         }}
