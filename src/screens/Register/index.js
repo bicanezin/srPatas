@@ -49,6 +49,7 @@ export default function Register({ navigation }) {
 
   const registerUser = () => {
     setIsLoading(true);
+    setErrors({});
 
     const checkErrors = validate();
     checkErrors.email !== undefined
@@ -64,7 +65,6 @@ export default function Register({ navigation }) {
           setEmail('');
           setPassword('');
           setIsLoading(false);
-          setErrors({});
 
         }).then(() => {
           navigation.navigate("Root");

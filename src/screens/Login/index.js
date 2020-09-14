@@ -41,6 +41,7 @@ export default function Login({ navigation }) {
 
   const login = () => {
     setIsLoading(true);
+    setErrors({});
 
     const checkErrors = validate();
     checkErrors.email !== undefined
@@ -56,7 +57,6 @@ export default function Login({ navigation }) {
           setEmail('');
           setPassword('');
           setIsLoading(false);
-          setErrors({});
 
         }).then(() => {
           navigation.navigate("Root");
