@@ -19,9 +19,10 @@ export default function Login({ navigation }) {
 
   let dogsWall = require("../../../assets/images/wall.png");
   YellowBox.ignoreWarnings(['Setting a timer']);
+
   React.useEffect(() => {
     // getToken();
-  }, [])
+  }, []);
 
   function validate() {
     let errors = {};
@@ -38,7 +39,7 @@ export default function Login({ navigation }) {
     return errors;
   };
 
-  const registerUser = () => {
+  const login = () => {
     setIsLoading(true);
 
     const checkErrors = validate();
@@ -49,23 +50,23 @@ export default function Login({ navigation }) {
         .auth().signInWithEmailAndPassword(email, password)
         .then((res) => {
           console.log(res.user)
-          console.log('User registered successfully!');
+          console.log('Successfully login!');
 
           storeToken(JSON.stringify(res.user));
           setEmail('');
           setPassword('');
+          setIsLoading(false);
+          setErrors({});
 
         }).then(() => {
           navigation.navigate("Root");
-          setIsLoading(false);
-          setErrors({});
         })
         .catch(error => {
           let errors = {};
-
           errors.firebaseLogin = error.message;
           setErrors(errors);
-          console.log(error.message, "sdfghjkl");
+          
+          console.log(error.message);
           setIsLoading(false)
         })
   }
@@ -160,7 +161,7 @@ export default function Login({ navigation }) {
           <>
             <Button
               onPress={() => {
-                registerUser();
+                login();
               }}
             >
               Login
