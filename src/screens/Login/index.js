@@ -1,7 +1,7 @@
 // @refresh reset
 
 import * as React from "react";
-import { Text, View, Image, ActivityIndicator } from "react-native";
+import { Text, View, Image, ActivityIndicator, YellowBox } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { styles } from "./styles";
 import firebase from '../../database/firebaseDb';
@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   let dogsWall = require("../../../assets/images/wall.png");
-
+  YellowBox.ignoreWarnings(['Setting a timer']);
   React.useEffect(() => {
     // getToken();
   }, [])
