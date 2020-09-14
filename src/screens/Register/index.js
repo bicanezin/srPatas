@@ -1,9 +1,11 @@
 import * as React from "react";
-import { Text, View, Image } from "react-native";
-import { styles } from "./styles";
+import { Text, View, ActivityIndicator } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import { Ionicons } from "@expo/vector-icons";
 
-import Header from "../../components/Header";
+import { styles } from "./styles";
+import firebase from '../../database/firebaseDb';
+import FormRow from '../../components/FormRow';
 import Button from "../../components/Button";
 import TInput from "../../components/TextInput";
 import PasswordInput from "../../components/PasswordInput";
@@ -11,7 +13,79 @@ import { colors, fontFamily, metrics } from "../../styles";
 
 export default function Register({ navigation }) {
   const [name, setName] = React.useState("");
+  // const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("")
+  const [errors, setErrors] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  function validate() {
+    let errors = {};
+    if (!name)
+      errors.name = 'Insira seu nome';
+
+    // if (!phoneNumber)
+    //   errors.phoneNumber = "Insira um número de telefone"
+    // else if (phoneNumber.length !== 9)
+    //   errors.phoneNumber = "Insira um número de telefone válido"
+
+    if (!email)
+      errors.email = 'Insira um endereço de email';
+    else if (!/\S+@\S+\.\S+/.test(email))
+      errors.email = 'Insira um email válido';
+
+    if (!password)
+      errors.password = 'Insira uma senha';
+    else if (password.length < 6)
+      errors.password = 'Insira uma senha com 6 ou mais caracteres';
+
+      if (!confirmPassword)
+      errors.confirmPassword = 'Insira a senha novamente'
+    else if (confirmPassword !== password)
+      errors.confirmPassword = "Insira senhas iguais"
+    return errors;
+  };
+
+  const registerUser = () => {
+    setIsLoading(true);
+
+    const checkErrors = validate();
+    checkErrors.email !== undefined
+      && checkErrors.password !== undefined
+      ? (setErrors(checkErrors), setIsLoading(false))
+      : firebase
+        .auth().createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+          console.log(res.user)
+          console.log('User registered successfully!');
+
+          storeToken(JSON.stringify(res.user));
+          setEmail('');
+          setPassword('');
+          setIsLoading(false);
+          setErrors({});
+
+        }).then(() => {
+          navigation.navigate("Root");
+        })
+        .catch(error => {
+          let errors = {};
+          errors.firebaseCreateUser = error.message;
+          setErrors(errors);
+          
+          console.log(error.message);
+          setIsLoading(false)
+        })
+  }
+
+  const storeToken = async (user) => {
+    try {
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -41,6 +115,7 @@ export default function Register({ navigation }) {
           Crie sua conta
         </Text>
       </View>
+      <Text style={styles.errorText}>{errors.firebaseCreateUser}</Text>
 
       <View
         style={{
@@ -48,13 +123,7 @@ export default function Register({ navigation }) {
           flex: 1.2,
         }}
       >
-        <View
-          style={{
-            // backgroundColor: colors.green1,
-            justifyContent: "space-around",
-            flex: 1,
-          }}
-        >
+        <FormRow>
           <TInput
             icon="ios-person"
             value={name}
@@ -64,33 +133,29 @@ export default function Register({ navigation }) {
             returnKeyType="next"
             autoCapitalize="words"
           />
-          <TInput
+          <Text style={styles.errorText}>{errors.name}</Text>
+
+          {/* <TInput
             icon="ios-phone-portrait"
-            value={name}
+            value={phoneNumber}
             label="Telefone"
             placeholder="ex: exemplo@gmail.com"
-            onChangeText={setName}
+            onChangeText={setPhoneNumber}
             returnKeyType="next"
             autoCapitalize="words"
           />
+          <Text style={styles.errorText}>{errors.phoneNumber}</Text> */}
+
           <TInput
             icon="ios-at"
-            value={name}
+            value={email}
             label="Email"
             placeholder="ex: exemplo@gmail.com"
-            onChangeText={setName}
+            onChangeText={setEmail}
             returnKeyType="next"
             autoCapitalize="words"
           />
-
-          <PasswordInput
-            value={password}
-            label="Confirmar senha"
-            icon="lock-outline"
-            placeholder="6 ou mais caractere"
-            returnKeyType="send"
-            onChangeText={(value) => setPassword(value)}
-          />
+          <Text style={styles.errorText}>{errors.email}</Text>
 
           <PasswordInput
             value={password}
@@ -100,24 +165,37 @@ export default function Register({ navigation }) {
             returnKeyType="send"
             onChangeText={(value) => setPassword(value)}
           />
-        </View>
+          <Text style={styles.errorText}>{errors.password}</Text>
+
+          <PasswordInput
+            value={confirmPassword}
+            label="Confirmar senha"
+            icon="lock-outline"
+            placeholder="6 ou mais caractere"
+            returnKeyType="send"
+            onChangeText={(value) => setConfirmPassword(value)}
+          />
+          <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+        </FormRow>
       </View>
 
       <View
         style={{
           // backgroundColor: colors.wine,
-          flex: 1,
+          flex: 0.5,
           alignItems: "center",
           justifyContent: "flex-start",
         }}
       >
-        <Button
-          onPress={() => {
-            navigation.push("Root");
-          }}
-        >
-          Cadastrar
-        </Button>
+        {isLoading ? <ActivityIndicator size="large" color={colors.pink} /> : (
+          <Button
+            onPress={() => {
+              registerUser();
+            }}
+          >
+            Cadastrar
+          </Button>
+        )}
       </View>
     </View>
   );
