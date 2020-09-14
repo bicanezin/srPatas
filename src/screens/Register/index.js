@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
-import FastImage from "react-native-fast-image";
 import { styles } from "./styles";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -12,10 +11,7 @@ import { colors, fontFamily, metrics } from "../../styles";
 
 export default function Register({ navigation }) {
   const [name, setName] = React.useState("");
-  const [nameError, setNameError] = React.useState(false);
-
   const [password, setPassword] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState(false);
 
   return (
     <View style={styles.container}>
@@ -67,10 +63,6 @@ export default function Register({ navigation }) {
             onChangeText={setName}
             returnKeyType="next"
             autoCapitalize="words"
-            errorBool={false}
-            //   // error={!!name && _nameError()}
-            //   // errorText={"Insira um nome completo"}
-            // visible={nameError && _nameError()}
           />
           <TInput
             icon="ios-phone-portrait"
@@ -80,10 +72,6 @@ export default function Register({ navigation }) {
             onChangeText={setName}
             returnKeyType="next"
             autoCapitalize="words"
-            errorBool={false}
-            //   // error={!!name && _nameError()}
-            //   // errorText={"Insira um nome completo"}
-            // visible={nameError && _nameError()}
           />
           <TInput
             icon="ios-at"
@@ -93,10 +81,6 @@ export default function Register({ navigation }) {
             onChangeText={setName}
             returnKeyType="next"
             autoCapitalize="words"
-            errorBool={false}
-            //   // error={!!name && _nameError()}
-            //   // errorText={"Insira um nome completo"}
-            // visible={nameError && _nameError()}
           />
 
           <PasswordInput
@@ -106,12 +90,6 @@ export default function Register({ navigation }) {
             placeholder="6 ou mais caractere"
             returnKeyType="send"
             onChangeText={(value) => setPassword(value)}
-            // onEndEditing={() => validateInfos()}
-            // onSubmitEditing={() => validateInfos()}
-            errorBool={false}
-            // error={!!confirmPassword && _confirmPasswordError()}
-            // visible={confirmPasswordError && _confirmPasswordError()}
-            // errorText={"Senhas diferentes"}
           />
 
           <PasswordInput
@@ -121,12 +99,6 @@ export default function Register({ navigation }) {
             placeholder="6 ou mais caractere"
             returnKeyType="send"
             onChangeText={(value) => setPassword(value)}
-            // onEndEditing={() => validateInfos()}
-            // onSubmitEditing={() => validateInfos()}
-            errorBool={false}
-            // error={!!confirmPassword && _confirmPasswordError()}
-            // visible={confirmPasswordError && _confirmPasswordError()}
-            // errorText={"Senhas diferentes"}
           />
         </View>
       </View>
