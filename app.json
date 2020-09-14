@@ -24,7 +24,8 @@
       "favicon": "./assets/images/favicon.png"
     },
     "android": {
-      "package": "com.bicanezin.srPatas"
+      "package": "com.bicanezin.srPatas",
+      "googleServicesFile": "./google-services.json"
     }
   },
   "hooks": {
