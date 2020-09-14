@@ -51,7 +51,7 @@ export default function Login({ navigation }) {
         .auth().signInWithEmailAndPassword(email, password)
         .then((res) => {
           console.log(res.user)
-          console.log('Successfully login!');
+          console.log('Successfull login!');
 
           storeToken(JSON.stringify(res.user));
           setEmail('');
