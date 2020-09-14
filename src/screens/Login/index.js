@@ -1,7 +1,7 @@
 // @refresh reset
 
 import * as React from "react";
-import { Text, View, Image, ActivityIndicator, YellowBox } from "react-native";
+import { Text, View, Image, ActivityIndicator, YellowBox, KeyboardAvoidingView } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { styles } from "./styles";
 import firebase from '../../database/firebaseDb';
@@ -65,7 +65,7 @@ export default function Login({ navigation }) {
           let errors = {};
           errors.firebaseLogin = error.message;
           setErrors(errors);
-          
+
           console.log(error.message);
           setIsLoading(false)
         })
@@ -90,12 +90,12 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <View
         style={{
           // backgroundColor: colors.pink,
-          flex: 1,
-          // flexDirection: "row",
+          marginTop: 15,
+          flex: 0.6,
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -109,7 +109,8 @@ export default function Login({ navigation }) {
       <View
         style={{
           // backgroundColor: colors.blue,
-          flex: 1.2,
+          paddingVertical: 20,
+          // flex: 1.2,
         }}
       >
         <Text
@@ -152,7 +153,7 @@ export default function Login({ navigation }) {
       <View
         style={{
           // backgroundColor: colors.wine,
-          flex: 1,
+          // flex: 1,
           alignItems: "center",
           justifyContent: "flex-start",
         }}
@@ -192,6 +193,6 @@ export default function Login({ navigation }) {
           </>
         )}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

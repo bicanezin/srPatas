@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, ActivityIndicator } from "react-native";
+import { Text, View, ActivityIndicator, KeyboardAvoidingView } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { Ionicons } from "@expo/vector-icons";
 
@@ -88,10 +88,11 @@ export default function Register({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <View
         style={{
           // backgroundColor: colors.pink,
+          marginTop: 15,
           flex: 0.4,
           justifyContent: "flex-end",
         }}
@@ -101,7 +102,7 @@ export default function Register({ navigation }) {
             navigation.goBack();
           }}
           name={"ios-arrow-back"}
-          size={30}
+          size={33}
           color={colors.greyDarker}
           style={{ marginLeft: 15 }}
         />
@@ -120,7 +121,8 @@ export default function Register({ navigation }) {
       <View
         style={{
           // backgroundColor: colors.blue,
-          flex: 1.2,
+          paddingVertical: 20,
+          // flex: 1.2,
         }}
       >
         <FormRow>
@@ -182,7 +184,7 @@ export default function Register({ navigation }) {
       <View
         style={{
           // backgroundColor: colors.wine,
-          flex: 0.5,
+          // flex: 0.5,
           alignItems: "center",
           justifyContent: "flex-start",
         }}
@@ -197,6 +199,6 @@ export default function Register({ navigation }) {
           </Button>
         )}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
