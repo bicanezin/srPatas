@@ -38,7 +38,7 @@ function PasswordInput(
           ref={ref}
           label={label}
           keyboardType={keyboardType}
-          placeholderTextColor={colors.orange}
+          placeholderTextColor={colors.purpleDarker}
           autoCapitalize="none"
           textContentType="none"
           autoCorrect={false}
@@ -46,7 +46,7 @@ function PasswordInput(
           style={[styles.textInput, style]}
           underlineColor={colors.greyLight}
           underlineColorAndroid={colors.greyLight}
-          selectionColor={colors.orangeLight}
+          selectionColor={colors.purpleLight}
           dense={true}
         />
 

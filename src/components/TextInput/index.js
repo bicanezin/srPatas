@@ -29,13 +29,13 @@ function TInput(
           ref={ref}
           label={label}
           keyboardType={keyboardType}
-          placeholderTextColor={colors.orange}
+          placeholderTextColor={colors.purpleDarker}
           autoCapitalize={autoCapitalize}
           // autoCorrect={false}
           style={[styles.TInput, style]}
           underlineColor={colors.greyLight}
           underlineColorAndroid={colors.greyLight}
-          selectionColor={colors.orangeLight}
+          selectionColor={colors.purpleLight}
           dense={true}
         />
       </View>
