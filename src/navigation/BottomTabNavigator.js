@@ -6,6 +6,7 @@ import { colors, fontFamily, metrics } from "../styles";
 
 import Home from "../screens/Home";
 import MyServices from "../screens/MyServices";
+import Profile from "../screens/Profile";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -14,6 +15,8 @@ export default function BottomTabNavigator() {
   let housePurple = require("../../assets/images/house-purple.png");
   let pawGrey = require("../../assets/images/paw-grey.png");
   let pawPurple = require("../../assets/images/paw-purple.png");
+  let userGrey = require("../../assets/images/user-grey.png");
+  let userPurple = require("../../assets/images/user-purple.png");
 
   return (
     <BottomTab.Navigator
@@ -32,8 +35,8 @@ export default function BottomTabNavigator() {
             focused ? (
               <TabBarIcon source={housePurple} />
             ) : (
-                <TabBarIcon source={houseGrey} />
-              ),
+              <TabBarIcon source={houseGrey} />
+            ),
         }}
       />
       <BottomTab.Screen
@@ -44,22 +47,30 @@ export default function BottomTabNavigator() {
             focused ? (
               <TabBarIcon source={pawPurple} />
             ) : (
-                <TabBarIcon source={pawGrey} />
-              ),
+              <TabBarIcon source={pawGrey} />
+            ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Perfil"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({ color, focused }) =>
+            focused ? (
+              <TabBarIcon source={userPurple} />
+            ) : (
+              <TabBarIcon source={userGrey} />
+            ),
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
 function TabBarIcon({ source }) {
   return <Image source={source} style={{ height: 30, width: 30 }} />;
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const HomeStack = createStackNavigator();
 
 function HomeNavigator() {
@@ -72,12 +83,12 @@ function HomeNavigator() {
           headerTitle: "Sr. Patas",
           headerTitleStyle: {
             fontFamily: fontFamily.notoSans_medium,
-            fontSize: metrics.fontSize20
+            fontSize: metrics.fontSize20,
           },
           headerStyle: {
             borderBottomWidth: 0.1,
-            borderBottomColor: colors.purpleDarker
-          }
+            borderBottomColor: colors.purpleDarker,
+          },
         }}
       />
     </HomeStack.Navigator>
@@ -96,14 +107,30 @@ function MyServicesNavigator() {
           headerTitle: "Meus agendamentos",
           headerTitleStyle: {
             fontFamily: fontFamily.notoSans_medium,
-            fontSize: metrics.fontSize18
+            fontSize: metrics.fontSize18,
           },
           headerStyle: {
             borderBottomWidth: 0.1,
-            borderBottomColor: colors.purpleDarker
-          }
+            borderBottomColor: colors.purpleDarker,
+          },
         }}
       />
     </MyServicesStack.Navigator>
+  );
+}
+
+const ProfileStack = createStackNavigator();
+
+function ProfileNavigator() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerLeft: false }}>
+      <ProfileStack.Screen
+        name="Perfil"
+        component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </ProfileStack.Navigator>
   );
 }
