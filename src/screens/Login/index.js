@@ -1,13 +1,20 @@
 // @refresh reset
 
 import * as React from "react";
-import { Text, View, Image, ActivityIndicator, YellowBox, KeyboardAvoidingView } from "react-native";
-import AsyncStorage from '@react-native-community/async-storage';
+import {
+  Text,
+  View,
+  Image,
+  ActivityIndicator,
+  YellowBox,
+  KeyboardAvoidingView,
+} from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import { styles } from "./styles";
-import firebase from '../../database/firebaseDb';
+import firebase from "../../database/firebaseDb";
 import Button from "../../components/Button";
 import TInput from "../../components/TextInput";
-import FormRow from '../../components/FormRow';
+import FormRow from "../../components/FormRow";
 import PasswordInput from "../../components/PasswordInput";
 import { colors, fontFamily, metrics } from "../../styles";
 
@@ -18,7 +25,7 @@ export default function Login({ navigation }) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   let dogsWall = require("../../../assets/images/wall.png");
-  YellowBox.ignoreWarnings(['Setting a timer']);
+  YellowBox.ignoreWarnings(["Setting a timer"]);
 
   React.useEffect(() => {
     // getToken();
@@ -27,49 +34,61 @@ export default function Login({ navigation }) {
   function validate() {
     let errors = {};
     if (!email) {
-      errors.email = 'Insira um endereço de email';
+      errors.email = "Insira um endereço de email";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = 'Insira um email válido';
+      errors.email = "Insira um email válido";
     }
     if (!password) {
-      errors.password = 'Insira uma senha';
+      errors.password = "Insira uma senha";
     } else if (password.length < 6) {
-      errors.password = 'Insira uma senha com 6 ou mais caracteres';
+      errors.password = "Insira uma senha com 6 ou mais caracteres";
     }
     return errors;
-  };
+  }
 
   const login = () => {
     setIsLoading(true);
     setErrors({});
 
     const checkErrors = validate();
-    checkErrors.email !== undefined
-      && checkErrors.password !== undefined
+    checkErrors.email !== undefined && checkErrors.password !== undefined
       ? (setErrors(checkErrors), setIsLoading(false))
       : firebase
-        .auth().signInWithEmailAndPassword(email, password)
-        .then((res) => {
-          console.log(res.user)
-          console.log('Successfull login!');
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then((res) => {
+            console.log(res.user);
+            console.log("Successfull login!");
 
-          storeToken(JSON.stringify(res.user));
-          setEmail('');
-          setPassword('');
-          setIsLoading(false);
+            storeToken(JSON.stringify(res.user));
+            setEmail("");
+            setPassword("");
+            setIsLoading(false);
+          })
+          .then(() => {
+            navigation.navigate("Root");
+          })
+          .catch((error) => {
+            let errors = {};
+            errors.firebaseLogin = getErrorByMessage(error.code);
+            setErrors(errors);
 
-        }).then(() => {
-          navigation.navigate("Root");
-        })
-        .catch(error => {
-          let errors = {};
-          errors.firebaseLogin = error.message;
-          setErrors(errors);
+            setIsLoading(false);
+          });
+  };
 
-          console.log(error.message);
-          setIsLoading(false)
-        })
-  }
+  const getErrorByMessage = (code) => {
+    switch (code) {
+      case "auth/wrong-password":
+        return "Senha incorreta";
+      case "auth/user-not-found":
+        return "Usuário não encontrado";
+      case "auth/invalid-email":
+        return "Email inválido";
+      default:
+        return "Erro no login";
+    }
+  };
 
   const storeToken = async (user) => {
     try {
@@ -77,7 +96,7 @@ export default function Login({ navigation }) {
     } catch (error) {
       console.log("Something went wrong", error);
     }
-  }
+  };
 
   const getToken = async () => {
     try {
@@ -87,10 +106,10 @@ export default function Login({ navigation }) {
     } catch (error) {
       console.log("Something went wrong", error);
     }
-  }
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior='padding'>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View
         style={{
           // backgroundColor: colors.pink,
@@ -158,7 +177,9 @@ export default function Login({ navigation }) {
           justifyContent: "flex-start",
         }}
       >
-        {isLoading ? <ActivityIndicator size="large" color={colors.pink} /> : (
+        {isLoading ? (
+          <ActivityIndicator size="large" color={colors.pink} />
+        ) : (
           <>
             <Button
               onPress={() => {
@@ -166,7 +187,7 @@ export default function Login({ navigation }) {
               }}
             >
               Login
-        </Button>
+            </Button>
             <Text
               style={{
                 marginTop: 10,
@@ -176,7 +197,7 @@ export default function Login({ navigation }) {
               }}
             >
               OU
-        </Text>
+            </Text>
             <Text
               style={{
                 marginTop: 10,
@@ -189,7 +210,7 @@ export default function Login({ navigation }) {
               }}
             >
               Cadastre-se
-        </Text>
+            </Text>
           </>
         )}
       </View>
