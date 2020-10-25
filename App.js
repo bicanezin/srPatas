@@ -1,31 +1,29 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import * as Sentry from "sentry-expo";
+import { StatusBar } from "expo-status-bar";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
+import "./src/config/ReactotronConfig";
 import useCachedResources from "./src/hooks/useCachedResources";
 import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/navigation";
+
+import { persistor, store } from "./src/store";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-  Sentry.init({
-    dsn:
-      "https://255c4d4ec5fb49acaf88d985154dab7b@o440198.ingest.sentry.io/5408391",
-    enableInExpoDevelopment: true,
-    debug: true,
-  });
-
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <StatusBar barStyle="dark-content" backgroundColor={"white"} />
-        <Navigation colorScheme={colorScheme} />
-      </SafeAreaProvider>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <StatusBar barStyle="dark-content" backgroundColor={"white"} />
+          <Navigation colorScheme={colorScheme} />
+        </PersistGate>
+      </Provider>
     );
   }
 }
