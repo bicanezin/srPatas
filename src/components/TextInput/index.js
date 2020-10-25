@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react"; // forwardRef para usar 'ref'
 
 import { View } from "react-native";
-import { HelperText, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 // import Icon from "react-native-vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
@@ -15,17 +15,11 @@ function TInput(
     label,
     icon,
     keyboardType,
-    errorBool,
-    error,
-    visible,
-    errorText,
     autoCapitalize,
     ...rest
   },
   ref
 ) {
-  // ...rest são todas as outras propriedades que ele pode receber
-  // ref é a referência direta a um elemento
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
@@ -35,23 +29,16 @@ function TInput(
           ref={ref}
           label={label}
           keyboardType={keyboardType}
-          placeholderTextColor={colors.orange}
+          placeholderTextColor={colors.purpleDarker}
           autoCapitalize={autoCapitalize}
           // autoCorrect={false}
           style={[styles.TInput, style]}
           underlineColor={colors.greyLight}
           underlineColorAndroid={colors.greyLight}
-          selectionColor={colors.orangeLight}
+          selectionColor={colors.purpleLight}
           dense={true}
-          error={error}
         />
       </View>
-
-      {errorBool ? (
-        <HelperText style={styles.helperText} type="error" visible={visible}>
-          {errorText}
-        </HelperText>
-      ) : null}
     </View>
   );
 }
@@ -64,10 +51,6 @@ TInput.prototype = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), //style OU é um objeto OU um array com vários objetos
   label: PropTypes.string,
   keyboardType: PropTypes.string,
-  error: PropTypes.func,
-  visible: PropTypes.func,
-  errorText: PropTypes.string,
-  errorBool: PropTypes.bool,
   autoCapitalize: PropTypes.string,
 };
 
@@ -77,10 +60,6 @@ TInput.prototype = {
   style: {},
   label: null,
   keyboardType: "default",
-  error: "",
-  visible: "",
-  errorText: "Erro",
-  errorBool: false,
   autoCapitalize: "sentences",
 };
 

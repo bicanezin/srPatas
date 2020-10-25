@@ -1,7 +1,7 @@
 import React, { useState, forwardRef } from 'react';
 
 import { View, TouchableOpacity } from 'react-native';
-import { TextInput, HelperText } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
@@ -16,10 +16,6 @@ function PasswordInput(
     label,
     icon,
     keyboardType,
-    errorBool,
-    error,
-    visible,
-    errorText,
     ...rest
   },
   ref
@@ -42,7 +38,7 @@ function PasswordInput(
           ref={ref}
           label={label}
           keyboardType={keyboardType}
-          placeholderTextColor={colors.orange}
+          placeholderTextColor={colors.purpleDarker}
           autoCapitalize="none"
           textContentType="none"
           autoCorrect={false}
@@ -50,9 +46,8 @@ function PasswordInput(
           style={[styles.textInput, style]}
           underlineColor={colors.greyLight}
           underlineColorAndroid={colors.greyLight}
-          selectionColor={colors.orangeLight}
+          selectionColor={colors.purpleLight}
           dense={true}
-          error={error}
         />
 
         <View style={styles.iconView}>
@@ -61,12 +56,6 @@ function PasswordInput(
           </TouchableOpacity>
         </View>
       </View>
-
-      {errorBool ? (
-        <HelperText style={styles.helperText} type="error" visible={visible}>
-          {errorText}
-        </HelperText>
-      ) : null}
     </View>
   );
 }
@@ -77,10 +66,6 @@ PasswordInput.prototype = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]), //style OU é um objeto OU um array com vários objetos
   label: PropTypes.string,
   keyboardType: PropTypes.string,
-  error: PropTypes.func,
-  visible: PropTypes.func,
-  errorText: PropTypes.string,
-  errorBool: PropTypes.bool,
 };
 
 PasswordInput.prototype = {
@@ -89,10 +74,6 @@ PasswordInput.prototype = {
   style: {},
   label: null,
   keyboardType: 'default',
-  error: '',
-  visible: '',
-  errorText: 'Erro',
-  errorBool: false,
 };
 
 export default forwardRef(PasswordInput);

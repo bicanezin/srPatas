@@ -33,9 +33,4 @@ export const styles = StyleSheet.create({
   eyes: {
     color: colors.grey,
   },
-  helperText: {
-    marginTop: -5,
-    marginLeft: -5,
-    fontSize: metrics.fontSize13,
-  },
 });

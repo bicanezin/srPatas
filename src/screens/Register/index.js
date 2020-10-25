@@ -1,31 +1,99 @@
 import * as React from "react";
-import { Text, View, Image } from "react-native";
-import FastImage from "react-native-fast-image";
-import { styles } from "./styles";
+import { Text, View, ActivityIndicator, KeyboardAvoidingView } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import { Ionicons } from "@expo/vector-icons";
 
+import { styles } from "./styles";
+import firebase from '../../database/firebaseDb';
+import FormRow from '../../components/FormRow';
 import Button from "../../components/Button";
 import TInput from "../../components/TextInput";
 import PasswordInput from "../../components/PasswordInput";
-import { colors } from "../../styles";
+import { colors, fontFamily, metrics } from "../../styles";
 
 export default function Register({ navigation }) {
   const [name, setName] = React.useState("");
-  const [nameError, setNameError] = React.useState(false);
-
+  // const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState(false);
+  const [confirmPassword, setConfirmPassword] = React.useState("")
+  const [errors, setErrors] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  let houseGrey = require("../../../assets/images/house-grey.png");
-  let catWall = require("../../../assets/images/cat_wall.png");
-  let dog1Wall = require("../../../assets/images/dog1_wall.png");
-  let dog2Wall = require("../../../assets/images/wall.png");
+  function validate() {
+    let errors = {};
+    if (!name)
+      errors.name = 'Insira seu nome';
+
+    // if (!phoneNumber)
+    //   errors.phoneNumber = "Insira um número de telefone"
+    // else if (phoneNumber.length !== 9)
+    //   errors.phoneNumber = "Insira um número de telefone válido"
+
+    if (!email)
+      errors.email = 'Insira um endereço de email';
+    else if (!/\S+@\S+\.\S+/.test(email))
+      errors.email = 'Insira um email válido';
+
+    if (!password)
+      errors.password = 'Insira uma senha';
+    else if (password.length < 6)
+      errors.password = 'Insira uma senha com 6 ou mais caracteres';
+
+      if (!confirmPassword)
+      errors.confirmPassword = 'Insira a senha novamente'
+    else if (confirmPassword !== password)
+      errors.confirmPassword = "Insira senhas iguais"
+    return errors;
+  };
+
+  const registerUser = () => {
+    setIsLoading(true);
+    setErrors({});
+
+    const checkErrors = validate();
+    checkErrors.email !== undefined
+      && checkErrors.password !== undefined
+      ? (setErrors(checkErrors), setIsLoading(false))
+      : firebase
+        .auth().createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+          console.log(res.user)
+          console.log('User registered successfully!');
+
+          storeToken(JSON.stringify(res.user));
+          setEmail('');
+          setPassword('');
+          setIsLoading(false);
+
+        }).then(() => {
+          navigation.navigate("Root");
+        })
+        .catch(error => {
+          let errors = {};
+          errors.firebaseCreateUser = error.message;
+          setErrors(errors);
+          
+          console.log(error.message);
+          setIsLoading(false)
+        })
+  }
+
+  const storeToken = async (user) => {
+    try {
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <View
         style={{
-          backgroundColor: colors.pink,
-          flex: 0.3,
+          // backgroundColor: colors.pink,
+          marginTop: 15,
+          flex: 0.4,
           justifyContent: "flex-end",
         }}
       >
@@ -34,25 +102,30 @@ export default function Register({ navigation }) {
             navigation.goBack();
           }}
           name={"ios-arrow-back"}
-          size={21}
+          size={33}
           color={colors.greyDarker}
+          style={{ marginLeft: 15 }}
         />
-        <Text>Criar conta</Text>
+        <Text
+          style={{
+            alignSelf: "center",
+            fontFamily: fontFamily.notoSans_bold,
+            fontSize: metrics.fontSize22,
+          }}
+        >
+          Crie sua conta
+        </Text>
       </View>
+      <Text style={styles.errorText}>{errors.firebaseCreateUser}</Text>
 
       <View
         style={{
           // backgroundColor: colors.blue,
-          flex: 1,
+          paddingVertical: 20,
+          // flex: 1.2,
         }}
       >
-        <View
-          style={{
-            // backgroundColor: colors.green1,
-            justifyContent: "space-around",
-            flex: 1,
-          }}
-        >
+        <FormRow>
           <TInput
             icon="ios-person"
             value={name}
@@ -61,52 +134,30 @@ export default function Register({ navigation }) {
             onChangeText={setName}
             returnKeyType="next"
             autoCapitalize="words"
-            errorBool={false}
-            //   // error={!!name && _nameError()}
-            //   // errorText={"Insira um nome completo"}
-            // visible={nameError && _nameError()}
           />
-          <TInput
+          <Text style={styles.errorText}>{errors.name}</Text>
+
+          {/* <TInput
             icon="ios-phone-portrait"
-            value={name}
+            value={phoneNumber}
             label="Telefone"
             placeholder="ex: exemplo@gmail.com"
-            onChangeText={setName}
+            onChangeText={setPhoneNumber}
             returnKeyType="next"
             autoCapitalize="words"
-            errorBool={false}
-            //   // error={!!name && _nameError()}
-            //   // errorText={"Insira um nome completo"}
-            // visible={nameError && _nameError()}
           />
+          <Text style={styles.errorText}>{errors.phoneNumber}</Text> */}
+
           <TInput
             icon="ios-at"
-            value={name}
+            value={email}
             label="Email"
             placeholder="ex: exemplo@gmail.com"
-            onChangeText={setName}
+            onChangeText={setEmail}
             returnKeyType="next"
             autoCapitalize="words"
-            errorBool={false}
-            //   // error={!!name && _nameError()}
-            //   // errorText={"Insira um nome completo"}
-            // visible={nameError && _nameError()}
           />
-
-          <PasswordInput
-            value={password}
-            label="Confirmar senha"
-            icon="lock-outline"
-            placeholder="6 ou mais caractere"
-            returnKeyType="send"
-            onChangeText={(value) => setPassword(value)}
-            // onEndEditing={() => validateInfos()}
-            // onSubmitEditing={() => validateInfos()}
-            errorBool={false}
-            // error={!!confirmPassword && _confirmPasswordError()}
-            // visible={confirmPasswordError && _confirmPasswordError()}
-            // errorText={"Senhas diferentes"}
-          />
+          <Text style={styles.errorText}>{errors.email}</Text>
 
           <PasswordInput
             value={password}
@@ -115,32 +166,39 @@ export default function Register({ navigation }) {
             placeholder="6 ou mais caractere"
             returnKeyType="send"
             onChangeText={(value) => setPassword(value)}
-            // onEndEditing={() => validateInfos()}
-            // onSubmitEditing={() => validateInfos()}
-            errorBool={false}
-            // error={!!confirmPassword && _confirmPasswordError()}
-            // visible={confirmPasswordError && _confirmPasswordError()}
-            // errorText={"Senhas diferentes"}
           />
-        </View>
+          <Text style={styles.errorText}>{errors.password}</Text>
+
+          <PasswordInput
+            value={confirmPassword}
+            label="Confirmar senha"
+            icon="lock-outline"
+            placeholder="6 ou mais caractere"
+            returnKeyType="send"
+            onChangeText={(value) => setConfirmPassword(value)}
+          />
+          <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+        </FormRow>
       </View>
 
       <View
         style={{
           // backgroundColor: colors.wine,
-          flex: 1,
+          // flex: 0.5,
           alignItems: "center",
           justifyContent: "flex-start",
         }}
       >
-        <Button
-          onPress={() => {
-            navigation.push("Root");
-          }}
-        >
-          Cadastrar
-        </Button>
+        {isLoading ? <ActivityIndicator size="large" color={colors.pink} /> : (
+          <Button
+            onPress={() => {
+              registerUser();
+            }}
+          >
+            Cadastrar
+          </Button>
+        )}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

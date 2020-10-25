@@ -21,10 +21,4 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'pink',
     height: wp("12%"),
   },
-
-  helperText: {
-    marginTop: -5,
-    marginLeft: -5,
-    fontSize: metrics.fontSize13,
-  },
 });

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -13,35 +13,22 @@ import { colors, metrics } from "../../styles";
 
 export default function Confirm({ navigation, route }) {
   return (
-    <View style={[styles.container, { justifyContent: "space-between" }]}>
-      <View style={{ marginTop: hp(3) }}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-          style={{
-            position: "absolute",
-            marginTop: hp(2),
-            marginLeft: wp(2),
-            backgroundColor: colors.darkTransparent,
-            width: metrics.goBackIconSize + 7,
-            borderRadius: metrics.borderRadius,
-            height: metrics.goBackIconSize + 7,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Ionicons
-            name="ios-arrow-back"
-            size={metrics.goBackIconSize}
-            color={colors.white}
-          />
-        </TouchableOpacity>
-      </View>
+    <View style={styles.container}>
+      <View />
 
-      <View style={{ backgroundColor: colors.white }}>
+      <View style={{ alignItems: "center" }}>
+        <Ionicons
+          name="ios-checkmark-circle-outline"
+          size={150}
+          color={colors.green}
+        />
+
+        <View style={styles.separator} />
+
         <View style={styles.sectionContainer}>
-          <Text style={styles.servicesTitle}>Confirmação</Text>
+          <Text style={styles.successTitle}>SUCESSO</Text>
+          <Text style={styles.subText}>YAY! O serviço foi agendado.</Text>
+          <Text style={styles.subText}>O seu pet irá ficar limpinho!</Text>
         </View>
       </View>
 

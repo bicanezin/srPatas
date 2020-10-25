@@ -230,10 +230,6 @@ export default function Home({ navigation, route }) {
                 onChangeText={setSearch}
                 returnKeyType="next"
                 autoCapitalize="words"
-                errorBool={false}
-                //   // error={!!name && _nameError()}
-                //   // errorText={"Insira um nome completo"}
-                // visible={nameError && _nameError()}
               />
             </View>
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "73830099863",
+    "firebase_url": "https://sr-patas.firebaseio.com",
+    "project_id": "sr-patas",
+    "storage_bucket": "sr-patas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73830099863:android:e48b5fcf9f044116beb2d2",
+        "android_client_info": {
+          "package_name": "com.srpatas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73830099863-jobsuel8dq31mo0q2bftos149dp2mreg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4_68pVWJVJdS9QCLbU8XgJdVyPg_aBAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73830099863-jobsuel8dq31mo0q2bftos149dp2mreg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

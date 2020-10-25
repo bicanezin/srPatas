@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import { Image } from "react-native";
-import { colors } from "../styles";
+import { colors, fontFamily, metrics } from "../styles";
 
 import Home from "../screens/Home";
 import MyServices from "../screens/MyServices";
@@ -32,20 +32,20 @@ export default function BottomTabNavigator() {
             focused ? (
               <TabBarIcon source={housePurple} />
             ) : (
-              <TabBarIcon source={houseGrey} />
-            ),
+                <TabBarIcon source={houseGrey} />
+              ),
         }}
       />
       <BottomTab.Screen
-        name="MyServices"
+        name="Agenda"
         component={MyServicesNavigator}
         options={{
           tabBarIcon: ({ color, focused }) =>
             focused ? (
               <TabBarIcon source={pawPurple} />
             ) : (
-              <TabBarIcon source={pawGrey} />
-            ),
+                <TabBarIcon source={pawGrey} />
+              ),
         }}
       />
     </BottomTab.Navigator>
@@ -70,7 +70,14 @@ function HomeNavigator() {
         component={Home}
         options={{
           headerTitle: "Sr. Patas",
-          headerTitleStyle: { fontFamily: "notoSans-regular" },
+          headerTitleStyle: {
+            fontFamily: fontFamily.notoSans_medium,
+            fontSize: metrics.fontSize20
+          },
+          headerStyle: {
+            borderBottomWidth: 0.1,
+            borderBottomColor: colors.purpleDarker
+          }
         }}
       />
     </HomeStack.Navigator>
@@ -85,7 +92,17 @@ function MyServicesNavigator() {
       <MyServicesStack.Screen
         name="MyServices"
         component={MyServices}
-        options={{ headerTitle: "Meus agendamentos" }}
+        options={{
+          headerTitle: "Meus agendamentos",
+          headerTitleStyle: {
+            fontFamily: fontFamily.notoSans_medium,
+            fontSize: metrics.fontSize18
+          },
+          headerStyle: {
+            borderBottomWidth: 0.1,
+            borderBottomColor: colors.purpleDarker
+          }
+        }}
       />
     </MyServicesStack.Navigator>
   );
