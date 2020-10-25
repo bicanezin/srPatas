@@ -9,11 +9,11 @@ import {
   YellowBox,
   KeyboardAvoidingView,
 } from "react-native";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import { styles } from "./styles";
+import firebaseErrors from "../../../firebase-errors.json";
 import { signInRequest } from "../../store/modules/auth/actions";
 import firebase from "../../database/firebaseDb";
 import Button from "../../components/Button";
@@ -54,8 +54,6 @@ export default function Login({ navigation }) {
   const login = async () => {
     setIsLoading(true);
     setErrors({});
-
-    // await axios.get("https://my-json-server.typicode.com/bicanezin/srPatas/users/1").then((res) => console.log(res.data));
 
     //**** GET */
     // firebase
@@ -99,8 +97,8 @@ export default function Login({ navigation }) {
               .ref("Users/")
               .push({
                 Email: email,
-                "nome": password,
-                "uid": res.user.uid,
+                nome: password,
+                uid: res.user.uid,
               })
               .then((data) => {
                 console.log("data ", data.key);
@@ -131,16 +129,7 @@ export default function Login({ navigation }) {
   };
 
   const getErrorByMessage = (code) => {
-    switch (code) {
-      case "auth/wrong-password":
-        return "Senha incorreta";
-      case "auth/user-not-found":
-        return "Usuário não encontrado";
-      case "auth/invalid-email":
-        return "Email inválido";
-      default:
-        return "Erro no login";
-    }
+    return firebaseErrors[code];
   };
 
   const storeToken = async (user) => {

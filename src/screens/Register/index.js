@@ -1,83 +1,100 @@
 import * as React from "react";
-import { Text, View, ActivityIndicator, KeyboardAvoidingView } from "react-native";
-import AsyncStorage from '@react-native-community/async-storage';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-community/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
-import firebase from '../../database/firebaseDb';
-import FormRow from '../../components/FormRow';
+import { saveUser } from "../../store/modules/user/actions";
+import firebaseErrors from "../../../firebase-errors.json";
+import firebase from "../../database/firebaseDb";
+import FormRow from "../../components/FormRow";
 import Button from "../../components/Button";
 import TInput from "../../components/TextInput";
 import PasswordInput from "../../components/PasswordInput";
 import { colors, fontFamily, metrics } from "../../styles";
 
 export default function Register({ navigation }) {
+  const dispatch = useDispatch();
+  const userRedux = useSelector((state) => state.user);
+
   const [name, setName] = React.useState("");
   // const [phoneNumber, setPhoneNumber] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("")
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errors, setErrors] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
 
+  const dispatchUser = (uid) => {
+    dispatch(saveUser(email, name, uid));
+  };
+
   function validate() {
     let errors = {};
-    if (!name)
-      errors.name = 'Insira seu nome';
+    if (!name) errors.name = "Insira seu nome";
 
     // if (!phoneNumber)
     //   errors.phoneNumber = "Insira um número de telefone"
     // else if (phoneNumber.length !== 9)
     //   errors.phoneNumber = "Insira um número de telefone válido"
 
-    if (!email)
-      errors.email = 'Insira um endereço de email';
+    if (!email) errors.email = "Insira um endereço de email";
     else if (!/\S+@\S+\.\S+/.test(email))
-      errors.email = 'Insira um email válido';
+      errors.email = "Insira um email válido";
 
-    if (!password)
-      errors.password = 'Insira uma senha';
+    if (!password) errors.password = "Insira uma senha";
     else if (password.length < 6)
-      errors.password = 'Insira uma senha com 6 ou mais caracteres';
+      errors.password = "Insira uma senha com 6 ou mais caracteres";
 
-      if (!confirmPassword)
-      errors.confirmPassword = 'Insira a senha novamente'
+    if (!confirmPassword) errors.confirmPassword = "Insira a senha novamente";
     else if (confirmPassword !== password)
-      errors.confirmPassword = "Insira senhas iguais"
+      errors.confirmPassword = "Insira senhas iguais";
     return errors;
-  };
+  }
 
   const registerUser = () => {
     setIsLoading(true);
     setErrors({});
 
     const checkErrors = validate();
-    checkErrors.email !== undefined
-      && checkErrors.password !== undefined
+    checkErrors.email !== undefined && checkErrors.password !== undefined
       ? (setErrors(checkErrors), setIsLoading(false))
       : firebase
-        .auth().createUserWithEmailAndPassword(email, password)
-        .then((res) => {
-          console.log(res.user)
-          console.log('User registered successfully!');
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((res) => {
+            console.log("User registered successfully!");
+            dispatchUser(res.user.uid);
 
-          storeToken(JSON.stringify(res.user));
-          setEmail('');
-          setPassword('');
-          setIsLoading(false);
+            storeToken(JSON.stringify(res.user));
+            setEmail("");
+            setPassword("");
+            setIsLoading(false);
+          })
+          .then(() => {
+            firebase.auth().currentUser.updateProfile({
+              displayName: name,
+            });
+            navigation.navigate("Root");
+          })
+          .catch((error) => {
+            let errors = {};
+            errors.firebaseCreateUser = getErrorByMessage(error.code);
+            setErrors(errors);
 
-        }).then(() => {
-          navigation.navigate("Root");
-        })
-        .catch(error => {
-          let errors = {};
-          errors.firebaseCreateUser = error.message;
-          setErrors(errors);
-          
-          console.log(error.message);
-          setIsLoading(false)
-        })
-  }
+            setIsLoading(false);
+          });
+  };
+
+  const getErrorByMessage = (code) => {
+    return firebaseErrors[code];
+  };
 
   const storeToken = async (user) => {
     try {
@@ -85,10 +102,10 @@ export default function Register({ navigation }) {
     } catch (error) {
       console.log("Something went wrong", error);
     }
-  }
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior='padding'>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View
         style={{
           // backgroundColor: colors.pink,
@@ -189,7 +206,9 @@ export default function Register({ navigation }) {
           justifyContent: "flex-start",
         }}
       >
-        {isLoading ? <ActivityIndicator size="large" color={colors.pink} /> : (
+        {isLoading ? (
+          <ActivityIndicator size="large" color={colors.pink} />
+        ) : (
           <Button
             onPress={() => {
               registerUser();
