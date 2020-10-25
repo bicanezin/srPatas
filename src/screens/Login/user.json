@@ -1,0 +1,32 @@
+{
+  "apiKey": "AIzaSyA4_68pVWJVJdS9QCLbU8XgJdVyPg_aBAA",
+  "appName": "[DEFAULT]",
+  "authDomain": "sr-patas.firebaseio.com",
+  "createdAt": "1600108735405",
+  "displayName": null,
+  "email": "bicanezin@gmail.com",
+  "emailVerified": false,
+  "isAnonymous": false,
+  "lastLoginAt": "1603650699320",
+  "phoneNumber": null,
+  "photoURL": null,
+  "providerData": [
+    {
+      "displayName": null,
+      "email": "bicanezin@gmail.com",
+      "phoneNumber": null,
+      "photoURL": null,
+      "providerId": "password",
+      "uid": "bicanezin@gmail.com"
+    }
+  ],
+  "redirectEventId": null,
+  "stsTokenManager": {
+    "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQxMGM4ZjhiMGRjN2Y1NWUyYjM1NDFmMjllNWFjMzc0M2Y3N2NjZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3ItcGF0YXMiLCJhdWQiOiJzci1wYXRhcyIsImF1dGhfdGltZSI6MTYwMzY1MDY5OSwidXNlcl9pZCI6ImxCTW9RVWg0NU9oWGpQYk9YRnVZdXlqQ2hFZDIiLCJzdWIiOiJsQk1vUVVoNDVPaFhqUGJPWEZ1WXV5akNoRWQyIiwiaWF0IjoxNjAzNjUwNjk5LCJleHAiOjE2MDM2NTQyOTksImVtYWlsIjoiYmljYW5lemluQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJiaWNhbmV6aW5AZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.RYAtXFDScayWlw4dEmSmRI3SmOCFXO5lXdymyWLfLSEoFSJL7a-GogXIDY4V6EIVi79jRvEha9M8aJrwY3ngA6gvMRsguX4tDXF_BZvWrWV2b46Zc61GaDyegdH-JuZJkGoMjZABK8nh0WQokxD3tz0znG0xc11HVsrbgJO5dCEt1B0PkWZqwaR7lCAZfcJzrp00huVDPwEomQev4dZkdeQBfgHTPqfTjUzBDcV2XWwRFFlyIKjjBuu8wsLYr2DCqqIhw0mpcp19OSRYnE8hRhBWJdxa8XvbReQ1uiFKVuhn9BsO4Qr8CPKrn41VHKPchC_4JO8FD66-_WQPIFCr9g",
+    "apiKey": "AIzaSyA4_68pVWJVJdS9QCLbU8XgJdVyPg_aBAA",
+    "expirationTime": 1603654299374,
+    "refreshToken": "AG8BCncTYB2CreZrRh3RU6PrylJd-7_QGTApj6S82ylAFgPbj8fKtFNLjiAGMs77JVJCOUZ_MGHSrMwJGyIMwU60revd4Cj-4Ae3c0BlLzMQnnEIBcKyztCWR0BT7r0ToY_Ff1a75Lm3ugyrXPRvLcrzDZ8JkrxXh2FdwpeGw14Bs5NVPtJ7CPQaeO-rIWK1uycjHCDwu9C_",
+  },
+  "tenantId": null,
+  "uid": "lBMoQUh45OhXjPbOXFuYuyjChEd2"
+}

@@ -9,8 +9,12 @@ import {
   YellowBox,
   KeyboardAvoidingView,
 } from "react-native";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-community/async-storage";
+
 import { styles } from "./styles";
+import { signInRequest } from "../../store/modules/auth/actions";
 import firebase from "../../database/firebaseDb";
 import Button from "../../components/Button";
 import TInput from "../../components/TextInput";
@@ -19,6 +23,7 @@ import PasswordInput from "../../components/PasswordInput";
 import { colors, fontFamily, metrics } from "../../styles";
 
 export default function Login({ navigation }) {
+  const dispatch = useDispatch();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState({});
@@ -46,9 +51,38 @@ export default function Login({ navigation }) {
     return errors;
   }
 
-  const login = () => {
+  const login = async () => {
     setIsLoading(true);
     setErrors({});
+
+    // await axios.get("https://my-json-server.typicode.com/bicanezin/srPatas/users/1").then((res) => console.log(res.data));
+
+    //**** GET */
+    // firebase
+    // .database()
+    // .ref("Users/")
+    // .once("value", function (snapshot) {
+    //   console.log(snapshot.val());
+    // });
+
+    //** DELETE */
+    // firebase.database().ref('Users/').remove();
+
+    //** ADD USER WITH PK */
+    // firebase
+    //   .database()
+    //   .ref("Users/")
+    //   .push({
+    //     "Email": email,
+    //     "Nome Completo": password,
+    //     "Token": 1223454,
+    //   })
+    //   .then((data) => {
+    //     console.log("data ", data.key);
+    //   })
+    //   .catch((error) => {
+    //     console.log("error ", error);
+    //   });
 
     const checkErrors = validate();
     checkErrors.email !== undefined && checkErrors.password !== undefined
@@ -57,8 +91,27 @@ export default function Login({ navigation }) {
           .auth()
           .signInWithEmailAndPassword(email, password)
           .then((res) => {
-            console.log(res.user);
+            console.log(res);
+            console.log(res.user.uid);
+
+            firebase
+              .database()
+              .ref("Users/")
+              .push({
+                Email: email,
+                "nome": password,
+                "uid": res.user.uid,
+              })
+              .then((data) => {
+                console.log("data ", data.key);
+              })
+              .catch((error) => {
+                console.log("error ", error);
+              });
+
             console.log("Successfull login!");
+
+            dispatch(signInRequest(email, password));
 
             storeToken(JSON.stringify(res.user));
             setEmail("");
