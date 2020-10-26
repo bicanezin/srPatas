@@ -24,7 +24,7 @@ function* save({ payload }) {
 
 function* update({ payload }) {
   firebase.auth().currentUser.updateProfile({
-    photo: payload.image,
+    photoURL: payload.image,
   });
 }
 
