@@ -7,12 +7,12 @@ function* save({ payload }) {
 
   firebase
     .database()
-    .ref("/users/")
+    .ref(`/users/${currentUser.uid}`)
     .push({
       email: payload.email,
       name: payload.name,
       uid: currentUser.uid,
-      image: null
+      image: null,
     })
     .then((data) => {
       console.log("data ", data.key);
@@ -23,8 +23,17 @@ function* save({ payload }) {
 }
 
 function* update({ payload }) {
-  firebase.auth().currentUser.updateProfile({
+  const { currentUser } = firebase.auth();
+
+  currentUser.updateProfile({
     photoURL: payload.image,
+  });
+
+  firebase.database().ref(`/users/${currentUser.uid}`).set({
+    email: payload.email,
+    name: payload.name,
+    uid: currentUser.uid,
+    image: payload.image,
   });
 }
 
