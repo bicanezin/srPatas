@@ -7,7 +7,7 @@ function* save({ payload }) {
 
   firebase
     .database()
-    .ref("/Users/")
+    .ref("/users/")
     .push({
       email: payload.email,
       name: payload.name,
@@ -23,7 +23,9 @@ function* save({ payload }) {
 }
 
 function* update({ payload }) {
- console.log(payload)
+  firebase.auth().currentUser.updateProfile({
+    photo: payload.image,
+  });
 }
 
 export default all([
