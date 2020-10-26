@@ -58,18 +58,18 @@ export default function Login({ navigation }) {
     //**** GET */
     // firebase
     // .database()
-    // .ref("Users/")
+    // .ref("users/")
     // .once("value", function (snapshot) {
     //   console.log(snapshot.val());
     // });
 
     //** DELETE */
-    // firebase.database().ref('Users/').remove();
+    // firebase.database().ref('users/').remove();
 
     //** ADD USER WITH PK */
     // firebase
     //   .database()
-    //   .ref("Users/")
+    //   .ref("users/")
     //   .push({
     //     "Email": email,
     //     "Nome Completo": password,
@@ -94,7 +94,7 @@ export default function Login({ navigation }) {
 
             firebase
               .database()
-              .ref("Users/")
+              .ref("users/")
               .push({
                 Email: email,
                 nome: password,
