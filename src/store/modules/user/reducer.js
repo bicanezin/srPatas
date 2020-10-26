@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
   name: "",
   email: "",
-  uid: ""
+  image: "",
+  uid: "",
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -11,7 +12,17 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         email: action.payload.email,
         name: action.payload.name,
-        uid: action.payload.uid
+        uid: action.payload.uid,
+        image: null
+      };
+
+    case "@user/UPDATE_USER":
+      return {
+        ...state,
+        email: action.payload.email,
+        name: action.payload.name,
+        image: action.payload.image,
+        uid: action.payload.uid,
       };
 
     default:

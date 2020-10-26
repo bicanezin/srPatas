@@ -4,3 +4,10 @@ export function saveUser(email, name, uid) {
     payload: { email, name, uid },
   };
 }
+
+export function updateUser(email, name, image) {
+  return {
+    type: "@user/UPDATE_USER",
+    payload: { email, name, image },
+  };
+}

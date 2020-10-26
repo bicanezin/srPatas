@@ -12,6 +12,7 @@ function* save({ payload }) {
       email: payload.email,
       name: payload.name,
       uid: currentUser.uid,
+      image: null
     })
     .then((data) => {
       console.log("data ", data.key);
@@ -21,6 +22,11 @@ function* save({ payload }) {
     });
 }
 
+function* update({ payload }) {
+ console.log(payload)
+}
+
 export default all([
   takeLatest("@user/SAVE_USER", save),
+  takeLatest("@user/UPDATE_USER", update),
 ]);
